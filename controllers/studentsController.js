@@ -16,3 +16,18 @@ export const createNewStudent = async (req, res) => {try {
       res.status(500).json(err);
     }
   };
+
+  export const updateStudent = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { name, last_name, email } = req.body;
+      const modifiedStudent = await Student.findByIdAndUpdate(
+        id,
+        { name, last_name, email },
+        { new: true }
+      );
+      res.status(200).json(modifiedStudent);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  };
